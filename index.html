@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Não entre...</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            overflow: hidden; /* Impede a rolagem */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        h1 {
+            color: #330000;
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase;
+            letter-spacing: 10px;
+        }
+
+        .scary-img {
+            position: absolute;
+            pointer-events: none;
+            animation: shake 0.1s infinite;
+            filter: grayscale(50%) contrast(150%);
+        }
+
+        /* Efeito de tremor nas imagens */
+        @keyframes shake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5px, 5px) rotate(5deg); }
+            50% { transform: translate(-5px, -5px) rotate(-5deg); }
+            75% { transform: translate(5px, -5px) rotate(5deg); }
+            100% { transform: translate(-5px, 5px) rotate(-5deg); }
+        }
+    </style>
+</head>
+<body onclick="spawner()">
+
+    <h1>CLIQUE POR SUA CONTA E RISCO</h1>
+
+    <script>
+        // Lista de URLs de imagens assustadoras
+        // Substitua esses links pelas imagens que você quiser!
+        const imagens = [
+            "https://via.placeholder.com/300/000000/ff0000?text=FANTASMA",
+            "https://via.placeholder.com/400/111111/ffffff?text=OLHOS",
+            "https://via.placeholder.com/250/000000/330000?text=MEDO"
+        ];
+
+        function spawner() {
+            // Cria 20 imagens de uma vez ao clicar
+            for (let i = 0; i < 20; i++) {
+                createImage();
+            }
+        }
+
+        function createImage() {
+            const img = document.createElement('img');
+            
+            // Escolhe uma imagem aleatória da lista
+            img.src = imagens[Math.floor(Math.random() * imagens.length)];
+            img.className = 'scary-img';
+            
+            // Define tamanho e posição aleatória
+            const size = Math.random() * (400 - 150) + 150;
+            img.style.width = size + "px";
+            img.style.top = Math.random() * window.innerHeight + "px";
+            img.style.left = Math.random() * window.innerWidth + "px";
+            
+            // Adiciona ao corpo da página
+            document.body.appendChild(img);
+        }
+
+        // Inicia o caos automaticamente após 2 segundos
+        setTimeout(() => {
+            setInterval(createImage, 100); // Cria uma imagem nova a cada 0.1 segundos
+        }, 2000);
+    </script>
+</body>
+</html>
